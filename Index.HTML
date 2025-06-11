@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política Pública de Participación Ciudadana - Pereira</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .slide:not(:last-child) {
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .slide-container {
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 80px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* Slide Intro */
+        .intro-slide {
+            background: #ffffff;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .intro-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out;
+            color: #ff6b35;
+        }
+
+        .intro-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            color: #2c3e50;
+        }
+
+        .intro-highlight {
+            font-size: 2.5rem;
+            background: #fff;
+            border: 3px solid #ff6b35;
+            color: #2c3e50;
+            padding: 30px 40px;
+            border-radius: 15px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        /* Regular slides */
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #ff8c42);
+            border-radius: 2px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .single-card {
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.15);
+            border-color: #ff6b35;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .card-content {
+            color: #34495e;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list li {
+            position: relative;
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .list li:last-child {
+            border-bottom: none;
+        }
+
+        .list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .list li:hover {
+            background: rgba(255, 107, 53, 0.1);
+            padding-left: 2.5rem;
+            border-radius: 8px;
+        }
+
+        .normative-list li:before {
+            content: "⚖️";
+            font-size: 1rem;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+
+        .qr-container {
+            padding: 1rem;
+        }
+
+        .qr-placeholder {
+            transition: all 0.3s ease;
+        }
+
+        .qr-placeholder:hover {
+            transform: scale(1.02);
+        }
+
+        .qr-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+        }
+
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 0 auto;
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qr-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .card {
+                padding: 2rem;
+            }
+            
+            .card-title {
+                font-size: 1.6rem;
+            }
+
+            .intro-title {
+                font-size: 2.5rem;
+            }
+
+            .intro-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .intro-highlight {
+                font-size: 1.8rem;
+                padding: 15px 25px;
+            }
+
+            .qr-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 0: Intro -->
+    <div class="slide intro-slide" id="slide-0">
+        <div class="header">
+            <img src="logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="intro-title">¿SABÍAS QUE...?</h1>
+            <p class="intro-subtitle">Pereira está construyendo su futuro democrático</p>
+            <div class="intro-highlight">
+                <strong>Pereira está construyendo su Política Pública de Participación Ciudadana</strong>
+            </div>
+        </div>
+        <div class="slide-number">Inicio</div>
+    </div>
+
+    <!-- Slide 1: ¿Qué es la Participación Ciudadana? -->
+    <div class="slide" id="slide-1">
+        <div class="header">
+            <img src="logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">¿QUÉ ES LA PARTICIPACIÓN CIUDADANA?</h1>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">🏛️</div>
+                        <h2 class="card-title">Definición</h2>
+                    </div>
+                    <div class="card-content">
+                        Es el derecho que tienen las personas a <strong>incidir en las decisiones públicas</strong> que afectan sus vidas. Implica mecanismos formales e informales de intervención en los asuntos del Estado, fortaleciendo la <strong>democracia</strong>, la <strong>equidad</strong> y la <strong>inclusión social</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">🤝</div>
+                        <h2 class="card-title">Características Clave</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list">
+                            <li>Es un <strong>derecho constitucional</strong></li>
+                            <li>Supone <strong>corresponsabilidad</strong> entre Estado y ciudadanía</li>
+                            <li>Favorece el <strong>control social</strong>, la transparencia y la legitimidad</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">1 / 6</div>
+    </div>
+
+    <!-- Slide 2: ¿Qué es una Política Pública de Participación Ciudadana? -->
+    <div class="slide" id="slide-2">
+        <div class="header">
+            <img src="logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">¿QUÉ ES UNA POLÍTICA PÚBLICA DE PARTICIPACIÓN CIUDADANA?</h1>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">📋</div>
+                        <h2 class="card-title">Definición</h2>
+                    </div>
+                    <div class="card-content">
+                        Es un conjunto de <strong>decisiones, estrategias, programas y acciones articuladas</strong> desde el Estado para fortalecer los mecanismos de participación ciudadana, garantizando su ejercicio <strong>pleno, efectivo, plural e inclusivo</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">🎯</div>
+                        <h2 class="card-title">Objetivos Generales</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list">
+                            <li><strong>Ampliar y diversificar</strong> canales de participación</li>
+                            <li>Promover <strong>liderazgo social</strong> y control ciudadano</li>
+                            <li>Garantizar que la <strong>voz de todos los sectores</strong> influya en la toma de decisiones públicas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">2 / 6</div>
+    </div>
+
+    <!-- Slide 3: Marco Normativo -->
+    <div class="slide" id="slide-3">
+        <div class="header">
+            <img src="logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">MARCO NORMATIVO EN COLOMBIA</h1>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">📜</div>
+                        <h2 class="card-title">Constitución y Leyes</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list normative-list">
+                            <li><strong>Constitución Política (1991):</strong> Art. 1, 2, 40 y 103 consagran la democracia participativa</li>
+                            <li><strong>Ley 1757 de 2015:</strong> Estatuto de Participación Ciudadana</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">📚</div>
+                        <h2 class="card-title">Normativa Complementaria</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list normative-list">
+                            <li><strong>Ley 152 de 1994:</strong> Ley Orgánica del Plan de Desarrollo</li>
+                            <li><strong>Manual M-GC-03 DNP:</strong> Lineamientos de rendición de cuentas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">3 / 6</div>
+    </div>
+
+    <!-- Slide 4: ¿Por qué es positiva para Pereira? -->
+    <div class="slide" id="slide-4">
+        <div class="header">
+            <img src="logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">¿POR QUÉ ES POSITIVA PARA PEREIRA?</h1>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">🏛️</div>
+                        <h2 class="card-title">Fortalecimiento Institucional</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list benefits-list">
+                            <li><strong>Fortalece la gobernanza local</strong> mediante corresponsabilidad</li>
+                            <li><strong>Moderniza mecanismos</strong> con tecnologías innovadoras</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">🌟</div>
+                        <h2 class="card-title">Inclusión Social</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list benefits-list">
+                            <li><strong>Responde a la desigualdad</strong> de sectores invisibilizados</li>
+                            <li><strong>Dinamiza liderazgos</strong> comunitarios y sociales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">4 / 6</div>
+    </div>
+
+    <!-- Slide 5: Llamado Final a la Acción -->
+    <div class="slide" id="slide-5">
+        <div class="header">
+            <img src="logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title" style="color: #ff6b35;">TÚ, PERSONERO Y CONTRALOR ESTUDIANTIL</h1>
+            
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-size: 2.2rem; color: #2c3e50; margin-bottom: 1rem;">
+                    DE NUESTRA AMADA <span style="color: #ff6b35;">PEREIRA</span>
+                </h2>
+                <p style="font-size: 1.4rem; color: #666; font-style: italic;">
+                    ¿Cómo puedes ayudar a construir el futuro participativo de tu ciudad?
+                </p>
+            </div>
+            
+            <div class="cards-container">
+                <div class="card" style="background: linear-gradient(145deg, #fff, #f8f9fa);">
+                    <div class="card-header">
+                        <div class="icon">🎓</div>
+                        <h2 class="card-title">Tu Rol es Fundamental</h2>
+                    </div>
+                    <div class="card-content">
+                        <p style="margin-bottom: 1.5rem; font-size: 1.2rem; color: #2c3e50;">
+                            Como <strong>líder estudiantil</strong>, tu experiencia en participación y control social es invaluable para:
+                        </p>
+                        <ul class="list">
+                            <li>Representar la <strong>voz joven</strong> en las decisiones públicas</li>
+                            <li>Aportar <strong>ideas innovadoras</strong> desde tu experiencia escolar</li>
+                            <li>Fortalecer los <strong>puentes</strong> entre instituciones educativas y gobierno local</li>
+                            <li>Ser <strong>multiplicador</strong> de cultura participativa en tu comunidad</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card qr-card" style="background: linear-gradient(145deg, #ff6b35, #ff8c42); color: white;">
+                    <div class="card-header">
+                        <div class="icon" style="background: rgba(255,255,255,0.2);">📝</div>
+                        <h2 class="card-title" style="color: white;">¡Diligencia Este Formulario!</h2>
+                    </div>
+                    <div class="card-content" style="text-align: center;">
+                        <div class="qr-container">
+                            <div class="qr-placeholder">
+                                <p style="font-size: 1.3rem; margin-bottom: 1rem; color: white;">
+                                    <strong>📱 Escanea el código QR o haz clic aquí</strong>
+                                </p>
+                                <a href="https://es.surveymonkey.com/r/PERSCONT" target="_blank" style="text-decoration: none;">
+                                    <img src="QR_code_PERSCONT.png" alt="Código QR - Encuesta Personeros y Contralores" class="qr-image">
+                                </a>
+                                <p style="font-size: 0.9rem; margin-top: 1rem; color: rgba(255,255,255,0.8);">
+                                    <strong>URL directa:</strong><br>
+                                    <a href="https://es.surveymonkey.com/r/PERSCONT" target="_blank" style="color: white; text-decoration: underline;">
+                                        es.surveymonkey.com/r/PERSCONT
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem;">
+                            <p style="font-size: 1.1rem; margin-bottom: 0.5rem; color: white;">
+                                <strong>⏱️ Solo 5 minutos de tu tiempo</strong>
+                            </p>
+                            <p style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">
+                                Tu participación es <strong>anónima y confidencial</strong><br>
+                                ¡Cada opinión cuenta para Pereira!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; text-align: center;">
+                <div style="background: #2c3e50; color: white; padding: 25px 50px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);">
+                    <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">
+                        🌟 ¡PEREIRA TE NECESITA! 🌟
+                    </p>
+                    <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 0.5rem;">
+                        Tu experiencia como líder estudiantil es la clave para una
+                    </p>
+                    <p style="font-size: 1.2rem; color: #ff6b35; font-weight: bold;">
+                        POLÍTICA PÚBLICA más inclusiva y efectiva
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">5 / 6</div>
+    </div>
+
+    <!-- Slide 6: Agradecimiento Final -->
+    <div class="slide" id="slide-6">
+        <div class="slide-container" style="text-align: center; margin-top: 0;">
+            <div style="margin-bottom: 3rem;">
+                <img src="logo_pereira_participa.png" alt="Pereira Participa" style="height: 200px; width: auto; object-fit: contain; margin-bottom: 2rem;">
+            </div>
+            
+            <h1 style="font-size: 3.5rem; color: #ff6b35; font-weight: bold; margin-bottom: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                ¡GRACIAS!
+            </h1>
+            
+            <div style="max-width: 800px; margin: 0 auto; margin-bottom: 3rem;">
+                <p style="font-size: 1.8rem; color: #2c3e50; line-height: 1.6; margin-bottom: 2rem;">
+                    Por ser parte activa en la construcción de una <strong style="color: #ff6b35;">Pereira más participativa</strong>
+                </p>
+                
+                <p style="font-size: 1.4rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">
+                    Tu compromiso como <strong>líder estudiantil</strong> trasciende las aulas y se convierte en 
+                    <strong style="color: #ff6b35;">semilla de transformación social</strong> para nuestra ciudad.
+                </p>
+                
+                <div style="background: linear-gradient(135deg, #ff6b35, #ff8c42); color: white; padding: 30px 40px; border-radius: 20px; margin: 2rem 0; box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);">
+                    <p style="font-size: 1.6rem; font-weight: bold; margin-bottom: 1rem;">
+                        🌱 Juntos cultivamos democracia
+                    </p>
+                    <p style="font-size: 1.2rem; opacity: 0.95;">
+                        Cada voz importa, cada idea suma, cada participación construye el Pereira que soñamos
+                    </p>
+                </div>
+                
+                <p style="font-size: 1.3rem; color: #2c3e50; font-style: italic;">
+                    "La participación ciudadana no es solo un derecho,<br>
+                    <strong style="color: #ff6b35;">es el corazón latiente de una democracia viva"</strong>
+                </p>
+            </div>
+            
+            <div style="margin-top: 4rem;">
+                <p style="font-size: 1.1rem; color: #666;">
+                    <strong>Alcaldía de Pereira</strong> • <strong style="color: #ff6b35;">Pereira Participa</strong>
+                </p>
+                <p style="font-size: 0.95rem; color: #999; margin-top: 0.5rem;">
+                    Construyendo juntos la Política Pública de Participación Ciudadana
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">6 / 6</div>
+    </div>
+
+    <script>
+        // Animation on load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('fade-in');
+                    }, index * 200);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
